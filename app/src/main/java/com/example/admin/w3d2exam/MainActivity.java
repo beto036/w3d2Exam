@@ -77,12 +77,12 @@ public class MainActivity extends AppCompatActivity {
             users = jsonParser.parseJson();
             user = username.getText().toString();
             password = this.password.getText().toString();
-            User userObj = validateUser(user);
+            User userObj = validateUser(user, password);
             System.out.println(userObj);
-            if(userObj != null && password != null && !"".equals(password)) {
+            if(userObj != null) {
                 showSecondActivity(userObj);
             }else{
-                Toast.makeText(this, "Invalid User", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Invalid User. Check your Username and Password", Toast.LENGTH_LONG).show();
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -108,9 +108,9 @@ public class MainActivity extends AppCompatActivity {
         return out.toString();
     }
 
-    private User validateUser(String user){
+    private User validateUser(String user, String password){
         for(User userObj : users){
-            if(userObj.getName().equals(user))
+            if(userObj.getName().equals(user) && userObj.getPassword().equals(password))
                 return userObj;
         }
         return null;

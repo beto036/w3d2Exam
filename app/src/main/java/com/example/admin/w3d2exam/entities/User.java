@@ -6,6 +6,16 @@ package com.example.admin.w3d2exam.entities;
 
 public class User {
     private String name;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    private String password;
     private int age;
     private float grade;
 
