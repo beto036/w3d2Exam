@@ -1,7 +1,9 @@
 package com.example.admin.w3d2exam;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -52,9 +54,11 @@ public class MainActivity extends AppCompatActivity {
         if(getIntent().getStringExtra(KEY_AGE) != null) getIntent().removeExtra(KEY_AGE);
         if(getIntent().getStringExtra(KEY_GRADE) != null) getIntent().removeExtra(KEY_GRADE);
 
-        if(getIntent().getBooleanExtra(KEY_CHK, false)){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if(sharedPreferences.getBoolean(MainActivity.KEY_CHK, false)){
             checkBox.setChecked(true);
-            username.setText(userN);
+            username.setText(sharedPreferences.getString(KEY_NAME,""));
         }
 
     }
@@ -121,7 +125,12 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(KEY_NAME, user.getName());
         intent.putExtra(KEY_AGE, user.getAge() +"");
         intent.putExtra(KEY_GRADE, user.getGrade()+"");
-        intent.putExtra(KEY_CHK, checkBox.isChecked());
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(KEY_CHK, checkBox.isChecked());
+        editor.putString(KEY_NAME, user.getName());
+        editor.commit();
+//        intent.putExtra(KEY_CHK, checkBox.isChecked());
         startActivity(intent);
     }
 

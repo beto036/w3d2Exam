@@ -1,6 +1,8 @@
 package com.example.admin.w3d2exam;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +25,9 @@ public class ResultActivity extends AppCompatActivity {
         txtName.setText("Name: " + getIntent().getStringExtra(MainActivity.KEY_NAME));
         txtAge.setText("Age: " + getIntent().getStringExtra(MainActivity.KEY_AGE));
         txtGrade.setText("Grade: " + getIntent().getStringExtra(MainActivity.KEY_GRADE));
-        remember = getIntent().getBooleanExtra(MainActivity.KEY_CHK, false);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        remember = sharedPreferences.getBoolean(MainActivity.KEY_CHK, false);
     }
 
     public void logout(View view) {
